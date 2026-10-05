@@ -1,0 +1,314 @@
+:root {
+  --bg: #0E1013;
+  --bg-subtle: #14171D;
+  --bg-card: #12151B;
+  --text: #EAEBE8;
+  --muted: #7E848D;
+  --accent: #D97736;
+  --accent-hover: #E68949;
+  --system: #388E94;
+  --system-glow: rgba(56, 142, 148, 0.15);
+  --line: #1E232B;
+  --line-bright: #2D3440;
+
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+
+  --container-max: 1360px;
+  --header-height: 72px;
+
+  --transition-fast: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+::selection {
+  background-color: var(--accent);
+  color: var(--bg);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+button {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+/* Monospace & Telemetry */
+code, pre, .mono, [data-mono] {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.85em;
+  letter-spacing: 0.02em;
+}
+
+/* Accessibility Focus States */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--line-bright);
+  border-radius: var(--radius-xs);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+/* Container Utility */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(1rem, 4vw, 2.5rem);
+  padding-right: clamp(1rem, 4vw, 2.5rem);
+}
+
+/* Hairline Grid Dividers */
+.hairline-top {
+  border-top: 1px solid var(--line);
+}
+.hairline-bottom {
+  border-bottom: 1px solid var(--line);
+}
+.hairline-left {
+  border-left: 1px solid var(--line);
+}
+.hairline-right {
+  border-right: 1px solid var(--line);
+}
+
+/* Screen Reader Only Utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Mirror & Colored Glow Typography Hover System */
+.mirror-glow-stroke {
+  display: block;
+  position: relative;
+  width: fit-content;
+  color: transparent !important;
+  -webkit-text-stroke: 1.5px var(--accent);
+  background-size: 250% 100%;
+  background-position: 100% 50%;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  cursor: pointer;
+  transition: 
+    -webkit-text-stroke 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    text-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: filter, -webkit-text-stroke, transform, background-position;
+}
+
+.mirror-glow-stroke:hover {
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.95);
+  background-image: linear-gradient(
+    115deg,
+    #d97736 0%,
+    #ffb584 18%,
+    #ffffff 32%,
+    #d97736 50%,
+    #ffffff 68%,
+    #ffa66e 82%,
+    #ffffff 92%,
+    #d97736 100%
+  ) !important;
+  animation: mirrorReflectionSweep 2.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  /* Refined, crisp subtle glow without overblown blur */
+  filter: drop-shadow(0 2px 10px rgba(217, 119, 54, 0.42));
+  text-shadow: 0 0 10px rgba(217, 119, 54, 0.28);
+  transform: translateY(-2px);
+}
+
+/* Individual Letter-by-Letter Forming System */
+.mirror-letter-wrap {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  user-select: none;
+}
+
+.mirror-letter {
+  display: inline-block;
+  position: relative;
+  color: transparent !important;
+  -webkit-text-stroke: 1.5px var(--accent);
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  cursor: pointer;
+  /* Smooth exit with subtle retention delay so letters form for a brief moment */
+  transition: 
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.05s,
+    -webkit-text-stroke 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.05s,
+    filter 0.4s ease 0.05s,
+    background-image 0.4s ease 0.05s;
+  will-change: transform, -webkit-text-stroke, filter;
+}
+
+.mirror-letter:hover {
+  /* Instant, snappy form into reflective metallic mirror on hover */
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.95);
+  background-image: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #ffc49e 25%,
+    var(--accent) 60%,
+    var(--accent-hover) 100%
+  ) !important;
+  filter: drop-shadow(0 2px 7px rgba(217, 119, 54, 0.45));
+  transform: translateY(-4px) scale(1.08);
+  /* Instant entrance transition */
+  transition: 
+    transform 0.14s cubic-bezier(0.16, 1, 0.3, 1),
+    -webkit-text-stroke 0.14s ease,
+    filter 0.14s ease,
+    background-image 0.14s ease;
+  z-index: 2;
+}
+
+.mirror-letter.theme-text {
+  -webkit-text-stroke: 1.5px var(--text);
+}
+
+.mirror-letter.theme-text:hover {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.98);
+  background-image: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #f2f3f5 30%,
+    #b9bfc8 70%,
+    #ffffff 100%
+  ) !important;
+  filter: drop-shadow(0 2px 7px rgba(234, 235, 232, 0.38));
+  transform: translateY(-4px) scale(1.08);
+  transition: 
+    transform 0.14s cubic-bezier(0.16, 1, 0.3, 1),
+    -webkit-text-stroke 0.14s ease,
+    filter 0.14s ease;
+}
+
+@keyframes mirrorReflectionSweep {
+  0% {
+    background-position: 120% 50%;
+  }
+  100% {
+    background-position: -120% 50%;
+  }
+}
+
+/* Animated Pipeline & Telemetry Keyframes */
+@keyframes flowDash {
+  from {
+    stroke-dashoffset: 40;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes scanSweep {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(200%);
+    opacity: 0;
+  }
+}
+
+@keyframes signalBlink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
